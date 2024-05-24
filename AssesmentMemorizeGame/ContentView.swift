@@ -8,17 +8,57 @@
 import SwiftUI
 
 struct ContentView: View {
+    // 3 Sets of emoji themes
+    let emojisTripUSA = ["🗽", "🏒", "🥅", "🇺🇸", "🏙️", "✈️", "🌎", "🛂", "💵", "🚨", "🤩", "🤯"]
+    let emojisMusic = ["🥁", "🎺", "🎵", "🎶", "🎹", "🎷", "🪗", "🎤", "🎸", "📀", "🥁", "🎧"]
+    let emojisSports = ["⚽️", "⚾️", "🏀", "🏈", "🥊", "🎾", "🏓", "🥌", "⛸️", "🏂", "🏅", "🥇"]
+    @State var cardCount = 4
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Memorize!")
+                .font(.title)
+            
+            VStack {
+                ScrollView {
+                    cards
+                }
+                
+            }
+            Spacer()
         }
         .padding()
     }
+    
+    var cards: some View {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
+            ForEach(0..<cardCount, id: \.self) { index in
+                CardView(content: emojisMusic[index])
+            }
+        }
+    }
+    
+    
+    
+    
 }
 
 #Preview {
     ContentView()
+}
+
+//Cards Sub-View
+struct CardView: View {
+    let content: String
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 20)
+                .fill(.white)
+                .strokeBorder(lineWidth: 5)
+            Text(content)
+                .font(.largeTitle)
+        }
+        
+    }
 }
